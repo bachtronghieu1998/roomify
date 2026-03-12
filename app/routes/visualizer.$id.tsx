@@ -1,20 +1,23 @@
+import { Container } from "lucide-react";
 import React from "react";
 import { useLocation, useParams } from "react-router";
 
 const VisualizerId = () => {
   const { id } = useParams();
-  const location = useLocation() as { state?: { image?: string } };
-  const image = location.state?.image;
-
+  const location = useLocation();
+  const { initialImage, name } = location.state || {};
   return (
-    <div className="visualizer">
-      <h1>Visualizer {id}</h1>
-      {image ? (
-        <img src={image} alt="Uploaded floor plan" />
-      ) : (
-        <p>No image data available for this visualizer.</p>
-      )}
-    </div>
+    <section>
+      <h1>{name || "Untitled Project"}</h1>
+      <div className="visualizer">
+        {initialImage && (
+          <div className="image-Container">
+            <h2>Source Image</h2>
+            <img src={initialImage} alt="source" />
+          </div>
+        )}
+      </div>
+    </section>
   );
 };
 
